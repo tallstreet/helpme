@@ -35,10 +35,11 @@ function App() {
 
   const onSubmit = useCallback(
     (e) => {
+      const form = new FormData(e.target);
       if (window.localStorage) {
-        window.localStorage.setItem("helpNumber", e.target.number.value);
+        window.localStorage.setItem("helpNumber", form.get("number"));
       }
-      setHelpNumber(e.target.number.value);
+      setHelpNumber(form.get("number"));
       e.preventDefault();
     },
     [setHelpNumber]
@@ -54,7 +55,7 @@ function App() {
         )}
 
         {!helpNumber && (
-          <form name="helpNumber" onSubmit={onSubmit}>
+          <form onSubmit={onSubmit}>
             <input
               type="text"
               name="number"
