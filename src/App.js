@@ -45,6 +45,17 @@ function App() {
     [setHelpNumber]
   );
 
+  const onReset = useCallback(
+    (e) => {
+      if (window.localStorage) {
+        window.localStorage.removeItem("helpNumber");
+      }
+      setHelpNumber(undefined);
+      e.preventDefault();
+    },
+    [setHelpNumber]
+  );
+
   return (
     <div className="App">
       <header className="App-header">
@@ -78,6 +89,12 @@ function App() {
           <a className="emergency_button" href={`tel:${emergencyNumber}`}>
             Call Emergency Services
           </a>
+        )}
+
+        {helpNumber && (
+          <button className="reset_button" onClick={onReset}>
+            Reset Number
+          </button>
         )}
       </header>
     </div>
